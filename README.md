@@ -6,17 +6,29 @@ Consider the following YYYY-MM-DD date regex: `^(?:19|20)\d\d([- /.])(?:0[1-9]|1
 It is a bit more readable and reusable expressed like this:
 
 ```scala
-import fr.splayce.rel.{Symbols, Implicits}
+import scala.util.matching.Regex
+import fr.splayce.rel._
 
 import Symbols._
 import Implicits._
+import util._
 
-val sep     = "[- /.]" \ "sep"            // group named "sep"
-val year    = ("19" | "20") ~ """\d\d"""  // ~ is concatenation
-val month   = "0[1-9]" | "1[012]"
-val day     = "0[1-9]" | "[12]\\d" | "3[01]"
-val dateYMD = ^ ~ year  ~ sep ~ month ~ !sep ~ day  ~ $
-val dateMDY = ^ ~ month ~ sep ~ day   ~ !sep ~ year ~ $
+object Main {
+  
+  val sep     = "[- /.]" \ "sep"            // group named "sep"
+  val year    = ("19" | "20") ~ """\d\d"""  // ~ is concatenation
+  val month   = "0[1-9]" | "1[012]"
+  val day     = "0[1-9]" | "[12]\\d" | "3[01]"
+  
+  val dateYMD: RE = ^ ~ year  ~ sep ~ month ~ !sep ~ day  ~ $
+  val dateMDY: RE = ^ ~ month ~ sep ~ day   ~ !sep ~ year ~ $
+  
+  def main(args: Array[String]): Unit = {
+    val ext: Extractor[String] = dateYMD << { (m: Regex.Match) => Some(m.matched) }
+    ext("2013/10/14") foreach println
+    // Output : 2013/10/14
+  }
+}
 ```
 
 
