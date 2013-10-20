@@ -6,7 +6,9 @@ Consider the following YYYY-MM-DD date regex: `^(?:19|20)\d\d([- /.])(?:0[1-9]|1
 It is a bit more readable and reusable expressed like this:
 
 ```scala
-import fr.splayce.rel._
+import fr.splayce.rel.{Symbols, Implicits}
+
+import Symbols._
 import Implicits._
 
 val sep     = "[- /.]" \ "sep"            // group named "sep"
