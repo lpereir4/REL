@@ -58,8 +58,8 @@ package util {
 
   /** Utility for instanciating pattern matchers on various objects.
    *
-   *  @see [[fr.splayce.rel.util.ByOptionExtractor#toPM]]
-   *  @see [[fr.splayce.rel.util.ByOptionExtractor.toPM]]
+   *  @see fr.splayce.rel.util.ByOptionExtractor$.toPM[A](MatchGroup => Option[A]):PatternMatcher[MatchGroup, A]
+   *  @see fr.splayce.rel.util.ByOptionExtractor$.toPM[A](MatchGroupOptionExtractor[A]):PatternMatcher[MatchGroup, A]
    */
   class PatternMatcher[-A, +B](val extract: A => Option[B]) {
     def this(partialExtractor: PartialFunction[A, B]) = this(partialExtractor lift)
